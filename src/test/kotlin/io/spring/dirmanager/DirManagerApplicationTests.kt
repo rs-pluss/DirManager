@@ -1,6 +1,6 @@
-package io.spring.DirManager
+package io.spring.dirmanager
 
-import io.spring.DirManager.catalog.service.DirService
+import io.spring.dirmanager.catalog.service.DirService
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.springframework.beans.factory.annotation.Autowired

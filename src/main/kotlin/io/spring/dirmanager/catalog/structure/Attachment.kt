@@ -1,4 +1,4 @@
-package io.spring.DirManager.catalog.structure
+package io.spring.dirmanager.catalog.structure
 
 import javax.persistence.*
 

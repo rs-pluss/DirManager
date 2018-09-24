@@ -1,5 +1,6 @@
-package io.spring.DirManager.catalog.structure
+package io.spring.dirmanager.catalog.structure
 
+import java.util.*
 import javax.persistence.*
 
 /**
@@ -17,6 +18,8 @@ class Directory {
      * Directory name
      */
     lateinit var name: String
+
+    lateinit var date: Date
 
     /**
      * List of content in directory

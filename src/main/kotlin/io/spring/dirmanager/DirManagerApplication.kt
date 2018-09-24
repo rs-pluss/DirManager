@@ -1,4 +1,4 @@
-package io.spring.DirManager
+package io.spring.dirmanager
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
