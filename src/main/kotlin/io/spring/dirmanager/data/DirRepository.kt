@@ -1,6 +1,7 @@
 package io.spring.dirmanager.data
 
+import io.spring.dirmanager.catalog.structure.Directory
 import org.springframework.data.repository.CrudRepository
 
-interface DirRepository : CrudRepository<io.spring.dirmanager.catalog.structure.Directory, Long> {
+interface DirRepository : CrudRepository<Directory, Long> {
 }

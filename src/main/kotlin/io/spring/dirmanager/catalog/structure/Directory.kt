@@ -19,13 +19,16 @@ class Directory {
      */
     lateinit var name: String
 
+    /**
+     * Date of directory adding
+     */
     lateinit var date: Date
 
     /**
      * List of content in directory
      */
-    @OneToMany(mappedBy = "directory")
-    lateinit var attachments: List<Attachment>
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "directory", cascade = [(CascadeType.ALL)])
+    private val attachments = mutableSetOf<Attachment>()
 
     /**
      * Return size of directory
@@ -40,7 +43,6 @@ class Directory {
 
     /**
      *  Return count of files in directory
-     * @return count of including files
      */
     fun getInnerFilesCount(): Int {
         return attachments.filter { it.isFile() }.size
@@ -48,9 +50,15 @@ class Directory {
 
     /**
      * Return count of directories in directory
-     * @return count of including directories
      */
     fun getInnerDirectoriesCount(): Int {
         return attachments.filter { it.isDirectory }.size
+    }
+
+    /**
+     * Add attachment to Directory
+     */
+    fun addAttachment(attachment: Attachment) {
+        attachments.add(attachment)
     }
 }
