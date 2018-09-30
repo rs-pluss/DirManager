@@ -1,27 +1,34 @@
 package io.spring.dirmanager.controllers
 
-import io.spring.dirmanager.catalog.service.DirService
-
-import io.spring.dirmanager.catalog.structure.Directory
+import io.spring.dirmanager.service.DirService
+import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.stereotype.Controller
+import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.RequestMapping
+import org.springframework.web.bind.annotation.RequestMethod
 import org.springframework.web.bind.annotation.RequestParam
-import org.springframework.web.bind.annotation.RestController
 
-@RestController
-class DirController(val service: DirService) {
+@Controller
+class DirController() {
 
-    @RequestMapping("/dirs")
-    fun getDirectories(): Iterable<Directory> {
-        return service.getAllDirectories()
+    @Autowired
+    lateinit var service: DirService
+    
+    /**
+     * Return list of all directories in directoryRepository
+     */
+    @RequestMapping("/")
+    fun getDirectoryList(model: Model): String {
+        model.addAttribute("dirList", service.getAllDirectories())
+        return "index";
     }
 
-    @RequestMapping("/dirs/{id}")
-    fun getDirectoryContent(@RequestParam("id") id: Long): Directory {
-        return service.obtainDirectoryContent(id)
-    }
-
-    @RequestMapping("/new_path")
-    fun addNewDirectory(@RequestParam("path") path: String) {
+    /**
+     * Add new watching directory to directoryRepository
+     */
+    @RequestMapping(value = ["/"], method = [(RequestMethod.POST)])
+    fun addNewDirectory(@RequestParam("path") path: String, model: Model): String {
         service.addNewDirectory(path)
+        return "redirect:/"
     }
 }
