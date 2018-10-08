@@ -4,13 +4,11 @@ import io.spring.dirmanager.service.DirService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RequestMethod
-import org.springframework.web.bind.annotation.RequestParam
+import org.springframework.web.bind.annotation.*
 
 @Controller
 class DirController() {
-
+    
     @Autowired
     lateinit var service: DirService
     
@@ -22,7 +20,7 @@ class DirController() {
         model.addAttribute("dirList", service.getAllDirectories())
         return "index";
     }
-
+    
     /**
      * Add new watching directory to directoryRepository
      */

@@ -24,10 +24,13 @@ class DirService(val jdbcTemplate: JdbcTemplate, val directoryRepository: DirRep
     /**
      * Return attachment of the directory with specific id
      */
-    fun obtainDirectoryAttachment(id: Long): Directory {
+    fun getDirectoryById(id: Long): Directory {
         return directoryRepository.findById(id).get()
     }
     
+    fun obtainDirectorynAttachment(id:Long):Set<Attachment> {
+        return getDirectoryById(id).attachments
+    }
     /**
      * Create directory by the path and add them to repository
      */
@@ -36,6 +39,7 @@ class DirService(val jdbcTemplate: JdbcTemplate, val directoryRepository: DirRep
         val directory = Directory()
         directory.name = path
         directory.date = Date()
+        //TODO investigate how save directory once time
         directoryRepository.save(directory)
         for (file in folder.listFiles()) {
             val attachment = Attachment()
@@ -44,8 +48,8 @@ class DirService(val jdbcTemplate: JdbcTemplate, val directoryRepository: DirRep
                     if (file.isDirectory) FileUtils.sizeOfDirectory(file) else file.length()
             attachment.isDirectory = file.isDirectory
             attachment.directory = directory
-            attachmentRepository.save(attachment)
             directory.addAttachment(attachment)
+            attachmentRepository.save(attachment)
         }
         directoryRepository.save(directory)
     }

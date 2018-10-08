@@ -28,7 +28,7 @@ class Directory {
      * List of content in directory
      */
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "directory", cascade = [(CascadeType.ALL)])
-    private val attachments = mutableSetOf<Attachment>()
+    val attachments = mutableSetOf<Attachment>()
 
     /**
      * Return size of directory
